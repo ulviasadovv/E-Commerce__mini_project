@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ECommerce.Domain.Entities
+﻿namespace ECommerce.Domain.Entities
 {
-    internal class User
+    public class User : Entity
     {
+        public string FullName { get; set; } = null!;
+        public string Password { get; set; } = null!;
+        public decimal Balance { get; set; }
+        public UserType UserType { get; set; }
+        public List<Order>? Orders { get; set; } = [];
     }
 }
