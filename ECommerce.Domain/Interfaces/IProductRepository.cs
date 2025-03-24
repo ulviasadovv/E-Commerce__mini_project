@@ -1,4 +1,5 @@
-﻿using ECommerce.Domain.Entities;
+﻿using ECommerce.Domain.Entities.Models;
+using ECommerce.Domain.Interfaces.Core;
 
 namespace ECommerce.Domain.Interfaces;
 

@@ -1,7 +1,7 @@
 ﻿using ECommerce.Application.DTOs;
 using ECommerce.Application.Extensions;
 using ECommerce.Application.Interfaces;
-using ECommerce.Domain.Entities;
+using ECommerce.Domain.Entities.Models;
 using ECommerce.Domain.Interfaces;
 using System.Linq.Expressions;
 

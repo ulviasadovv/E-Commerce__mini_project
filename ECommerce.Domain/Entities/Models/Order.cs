@@ -1,4 +1,7 @@
-﻿namespace ECommerce.Domain.Entities
+﻿using ECommerce.Domain.Entities.Core;
+using ECommerce.Domain.Entities.Enums;
+
+namespace ECommerce.Domain.Entities.Models
 {
     public class Order : Entity
     {

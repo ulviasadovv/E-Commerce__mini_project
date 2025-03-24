@@ -1,5 +1,5 @@
 ﻿using ECommerce.Application.DTOs;
-using ECommerce.Domain.Entities;
+using ECommerce.Domain.Entities.Models;
 
 namespace ECommerce.Application.Extensions;
 

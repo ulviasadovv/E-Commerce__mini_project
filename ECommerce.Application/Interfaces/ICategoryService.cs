@@ -1,5 +1,5 @@
 ﻿using ECommerce.Application.DTOs;
-using ECommerce.Domain.Entities;
+using ECommerce.Domain.Entities.Models;
 using System.Linq.Expressions;
 
 namespace ECommerce.Application.Interfaces;

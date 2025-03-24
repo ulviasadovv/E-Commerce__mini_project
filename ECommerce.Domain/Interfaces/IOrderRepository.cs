@@ -3,6 +3,6 @@ using ECommerce.Domain.Interfaces.Core;
 
 namespace ECommerce.Domain.Interfaces;
 
-public interface ICategoryRepository : IRepository<Category>
+public interface IOrderRepository : IRepository<Order>
 {
 }

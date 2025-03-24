@@ -1,7 +1,7 @@
-﻿using ECommerce.Domain.Entities;
+﻿using ECommerce.Domain.Entities.Core;
 using System.Linq.Expressions;
 
-namespace ECommerce.Domain.Interfaces;
+namespace ECommerce.Domain.Interfaces.Core;
 
 public interface IRepository<T> where T : Entity
 {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ECommerce.Domain.Entities;
+﻿using ECommerce.Domain.Entities.Enums;
 
 namespace ECommerce.Application.DTOs
 {
@@ -11,22 +6,22 @@ namespace ECommerce.Application.DTOs
     {
         public int Id { get; set; }
         public string FullName { get; set; } = null!;
-        public decimal Balance { get; set; }
+        public decimal? Balance { get; set; } = 0;
     }
 
-    public class UserCreateDto : UserDto
+    public class UserCreateDto
     {
-        public UserType Type { get; set; }
+        public UserType? Type { get; set; } = UserType.User;
         public string FullName { get; set; } = null!;
         public string Password { get; set; } = null!;
-        public decimal Balance { get; set; }
+        public decimal? Balance { get; set; } = 0;
     }
 
-    public class UserUpdateDto : UserDto
+    public class UserUpdateDto
     {
         public int Id { get; set; }
         public string? FullName { get; set; }
-        public decimal Balance { get; set; }
+        public decimal? Balance { get; set; }
     }
 
 }

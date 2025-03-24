@@ -1,4 +1,6 @@
-﻿namespace ECommerce.Domain.Entities;
+﻿using ECommerce.Domain.Entities.Core;
+
+namespace ECommerce.Domain.Entities.Models;
 
 public class Product : Entity
 {

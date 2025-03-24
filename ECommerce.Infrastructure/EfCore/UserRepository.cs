@@ -5,9 +5,9 @@ using ECommerce.Infrastructure.EfCore.Core;
 
 namespace ECommerce.Infrastructure.EfCore;
 
-public class ProductRepository : EfCoreRepository<Product>, IProductRepository
+public class UserRepository : EfCoreRepository<User>, IUserRepository
 {
-    public ProductRepository(AppDbContext context) : base(context)
+    public UserRepository(AppDbContext context) : base(context)
     {
     }
 }

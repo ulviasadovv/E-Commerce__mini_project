@@ -1,10 +1,10 @@
-﻿using ECommerce.Domain.Entities;
-using ECommerce.Domain.Interfaces;
+﻿using ECommerce.Domain.Entities.Core;
+using ECommerce.Domain.Interfaces.Core;
 using ECommerce.Infrastructure.EfCore.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace ECommerce.Infrastructure.EfCore;
+namespace ECommerce.Infrastructure.EfCore.Core;
 
 public class EfCoreRepository<T> : IRepository<T> where T : Entity
 {
