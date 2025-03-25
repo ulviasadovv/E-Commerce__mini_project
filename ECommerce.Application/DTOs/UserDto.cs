@@ -15,6 +15,7 @@ namespace ECommerce.Application.DTOs
         public string FullName { get; set; } = null!;
         public string Password { get; set; } = null!;
         public decimal? Balance { get; set; } = 0;
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
     }
 
     public class UserUpdateDto
@@ -22,6 +23,7 @@ namespace ECommerce.Application.DTOs
         public int Id { get; set; }
         public string? FullName { get; set; }
         public decimal? Balance { get; set; }
+        public DateTime? UpdatedAt { get; set; } = DateTime.Now;
     }
 
 }

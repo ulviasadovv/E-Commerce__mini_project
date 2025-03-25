@@ -1,31 +1,73 @@
-﻿using ECommerce.Application.Interfaces;
+﻿using ECommerce.Application.DTOs;
+using ECommerce.Application.Interfaces;
 using ECommerce.Application.Services;
+using ECommerce.Domain.Entities.Models;
+using ECommerce.Domain.Interfaces;
+using ECommerce.Infrastructure.EfCore;
+using ECommerce.Infrastructure.EfCore.Context;
 
-namespace ECommerce.UI
+namespace ECommerce.UI;
+
+public class ProductUI
 {
-    public class ProductUI
+    public static void ShowProducts(User user)
     {
-        public static void ShowProducts()
-        {
-            Console.Clear();
-            var productService = new ProductManager();
-            var products = productService.GetAll();
+        var appDbContext = new AppDbContext();
+        IProductRepository productRepository = new ProductRepository(appDbContext);
+        IProductService productService = new ProductManager(productRepository);
+        var products = productService.GetAll(null, false);
 
-            if (!products.Any())
+        if (!products.Any())
+        {
+            Console.WriteLine("Product not found.");
+        }
+        else
+        {
+            Console.WriteLine("\n=== Products ===");
+            foreach (var product in products)
             {
-                Console.WriteLine("Product not found.");
+                Console.WriteLine($"ID: {product.Id}, Name: {product.Name}, Price: {product.Price}");
             }
-            else
+
+            Console.WriteLine("\n1. Add to basket");
+            Console.WriteLine("2. Exit");
+            while (true)
             {
-                Console.WriteLine("=== Products ===");
-                foreach (var product in products)
+                Console.Write("Choose an option: ");
+                var choice = Console.ReadLine();
+                switch (choice)
                 {
-                    Console.WriteLine($"ID: {product.Id}, Name: {product.Name}, Price: {product.Price}");
+                    case "1":
+                        Console.Write("Enter product ID: ");
+                        var productId = Convert.ToInt32(Console.ReadLine());
+                        var selectedProduct = productService.GetById(productId);
+                        if (selectedProduct == null)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Product not found.");
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                        }
+                        else
+                        {
+                            var order = new OrderCreateDto
+                            {
+                                UserId = user.Id,
+                            };
+
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Product added to basket.");
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                        }
+                        break;
+                    case "2":
+                        return;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\nIncorrect selection!");
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        break;
                 }
             }
-
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
         }
     }
 }

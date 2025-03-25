@@ -1,46 +1,33 @@
 ﻿using ECommerce.Application.Interfaces;
+using ECommerce.Application.Services;
+using ECommerce.Domain.Entities.Models;
+using ECommerce.Domain.Interfaces;
+using ECommerce.Infrastructure.EfCore;
+using ECommerce.Infrastructure.EfCore.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.UI
 {
-    internal class OrderUI
+    public class OrderUI
     {
-        public static async void PlaceOrder()
+        public static void PlaceOrder(User user)
         {
-            Console.Clear();
-            var productService = Program.ServiceProvider.GetRequiredService<IProductService>();
-            var orderService = Program.ServiceProvider.GetRequiredService<IOrderService>();
+            var appDbContext = new AppDbContext();
+            IOrderRepository orderRepository = new OrderRepository(appDbContext);
+            IOrderService orderService = new OrderManager(orderRepository);
 
-            var products = await productService.GetAllProductsAsync();
-            if (!products.Any())
+            var orders = appDbContext.Orders.Include(x => x.User).ToList();
+            if (orders.Count == 0)
             {
-                Console.WriteLine("Sipariş verilecek ürün bulunamadı.");
+                Console.WriteLine("Order not found.");
                 return;
             }
 
-            Console.WriteLine("=== Products ===");
-            foreach (var product in products)
+            Console.WriteLine("=== Orders ===");
+            foreach (var order in orders)
             {
-                Console.WriteLine($"ID: {product.Id}, Name: {product.Name}, Price: {product.Price}");
+                Console.WriteLine($"ID: {order.Id}, User: {order.User.FullName}, Status: {order.Status}");
             }
-
-            Console.Write("Enter quantity of products: ");
-            if (!int.TryParse(Console.ReadLine(), out int quantity))
-            {
-                Console.WriteLine("Quantity is incorrect!");
-                return;
-            }
-
-            //var orderDto = new OrderDto
-            //{
-            //    Id = 1, // Varsayılan müşteri ID, gerçekte giriş yapan kullanıcının ID'si olmalı
-            //    Items = productId,
-            //    Quantity = quantity
-            //};
-
-            //await orderService.PlaceOrderAsync(orderDto);
-            Console.WriteLine("Sipariş başarıyla oluşturuldu!");
-            Console.WriteLine("Devam etmek için bir tuşa basın...");
-            Console.ReadKey();
         }
 
     }

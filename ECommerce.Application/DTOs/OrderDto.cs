@@ -14,6 +14,7 @@ namespace ECommerce.Application.DTOs
     public class OrderCreateDto
     {
         public int UserId { get; set; }
+        public List<OrderItemDto>? Items { get; set; } = [];
         public decimal Amount { get; set; }
         public StatusType Status { get; set; } = StatusType.Pending;
     }

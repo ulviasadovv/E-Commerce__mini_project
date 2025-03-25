@@ -5,7 +5,7 @@ using ECommerce.Infrastructure.EfCore.Core;
 
 namespace ECommerce.Infrastructure.EfCore
 {
-    internal class OrderRepository : EfCoreRepository<Order>, IOrderRepository
+    public class OrderRepository : EfCoreRepository<Order>, IOrderRepository
     {
         public OrderRepository(AppDbContext context) : base(context)
         {

@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace ECommerce.Application.Services;
 
-class OrderManager : IOrderService
+public class OrderManager : IOrderService
 {
     private readonly IOrderRepository _repository;
 
@@ -49,7 +49,7 @@ class OrderManager : IOrderService
         {
             Id = order.Id,
             Status = order.Status,
-            OrderDate = order.OrderDate,
+            //OrderDate = order.OrderDate,
             Items = order.Items.Select(i => new OrderItemDto
             {
                 Id = i.Id,
@@ -94,7 +94,7 @@ class OrderManager : IOrderService
             {
                 Id = item.Id,
                 Status = item.Status,
-                OrderDate = item.OrderDate,
+                //OrderDate = item.OrderDate,
                 Items = item.Items.Select(i => new OrderItemDto
                 {
                     Id = i.Id,

@@ -1,4 +1,5 @@
-﻿using ECommerce.Infrastructure.EfCore.Context;
+﻿using ECommerce.Domain.Entities.Enums;
+using ECommerce.Infrastructure.EfCore.Context;
 
 namespace ECommerce.UI
 {
@@ -8,26 +9,36 @@ namespace ECommerce.UI
         {
             var dbContext = new AppDbContext();
 
-            Console.Clear();
-            Console.Write("Username: ");
+            Console.WriteLine("=== E-Commerce Application ===");
+            Console.WriteLine();
+            Console.Write("Enter username: ");
             string username = Console.ReadLine();
 
-            Console.Write("Password: ");
+            Console.Write("Enter password: ");
             string password = Console.ReadLine();
 
-            var user = dbContext.Users.FirstOrDefault(u => u.FullName == username && u.Password == password);
+            var user = dbContext.Users.FirstOrDefault
+                (
+                u => u.FullName.ToLower() == username.ToLower() &&
+                u.Password.ToLower() == password.ToLower()
+                );
 
             if (user != null)
             {
-                Console.WriteLine($"Welcome {user.FullName}!");
+                if (user.Type == UserType.Admin)
+                {
+                    Console.WriteLine($"\nWelcome Admin {user.FullName}!");
+                    AdminMenu.ShowAdminMenu();
+                }
+                else
+                {
+                    Console.WriteLine($"\nWelcome {user.FullName}!");
+                    Menu.ShowMainMenu(user);
+                    return;
+                }
             }
             else
-            {
                 Console.WriteLine("Username or password is not correct!");
-            }
-
-            Console.WriteLine("Press any button to continue...");
-            Console.ReadKey();
         }
 
     }

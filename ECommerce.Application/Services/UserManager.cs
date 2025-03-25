@@ -45,6 +45,7 @@ namespace ECommerce.Application.Services
                     Id = item.Id,
                     FullName = item.FullName,
                     Balance = item.Balance,
+                    
                 });
             }
 
@@ -81,7 +82,7 @@ namespace ECommerce.Application.Services
                 Id = userUpdateDto.Id,
                 FullName = userUpdateDto.FullName,
                 Balance = (decimal)userUpdateDto.Balance,
-                
+                UpdatedAt = (DateTime)userUpdateDto.UpdatedAt,
             };
 
             _repository.Update(user);

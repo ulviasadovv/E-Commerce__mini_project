@@ -21,6 +21,9 @@ public static class OrderMapExtensions
         {
             Id = order.Id,
             Status = order.Status,
+            OrderDate = order.CreatedAt,
+            Items = order.Items.Select(x => x.toOrderItemDto()).ToList(),
+            User = order.User.ToUserDto(),
         };
     }
 }
