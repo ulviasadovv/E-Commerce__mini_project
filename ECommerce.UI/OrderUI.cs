@@ -19,11 +19,13 @@ namespace ECommerce.UI
             var orders = appDbContext.Orders.Include(x => x.User).ToList();
             if (orders.Count == 0)
             {
-                Console.WriteLine("Order not found.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nOrder not found.");
+                Console.ForegroundColor = ConsoleColor.Gray;
                 return;
             }
 
-            Console.WriteLine("=== Orders ===");
+            Console.WriteLine("\n=== Orders ===");
             foreach (var order in orders)
             {
                 Console.WriteLine($"ID: {order.Id}, User: {order.User.FullName}, Status: {order.Status}");

@@ -33,7 +33,7 @@ public class ProductUI
             Console.WriteLine("2. Exit");
             while (true)
             {
-                Console.Write("Choose an option: ");
+                Console.Write("\nChoose an option: ");
                 var choice = Console.ReadLine();
                 switch (choice)
                 {

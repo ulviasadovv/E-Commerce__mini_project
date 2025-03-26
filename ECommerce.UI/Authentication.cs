@@ -10,36 +10,43 @@ namespace ECommerce.UI
             var dbContext = new AppDbContext();
 
             Console.WriteLine("=== E-Commerce Application ===");
-            Console.WriteLine();
-            Console.Write("Enter username: ");
-            string username = Console.ReadLine();
 
-            Console.Write("Enter password: ");
-            string password = Console.ReadLine();
-
-            var user = dbContext.Users.FirstOrDefault
-                (
-                u => u.FullName.ToLower() == username.ToLower() &&
-                u.Password.ToLower() == password.ToLower()
-                );
-
-            if (user != null)
+            while (true)
             {
-                if (user.Type == UserType.Admin)
+                Console.WriteLine();
+                Console.Write("Enter username: ");
+                string username = Console.ReadLine();
+
+                Console.Write("Enter password: ");
+                string password = Console.ReadLine();
+
+                var user = dbContext.Users.FirstOrDefault
+                    (
+                    u => u.FullName.ToLower() == username.ToLower() &&
+                    u.Password.ToLower() == password.ToLower()
+                    );
+
+                if (user != null)
                 {
-                    Console.WriteLine($"\nWelcome Admin {user.FullName}!");
-                    AdminMenu.ShowAdminMenu();
+                    if (user.Type == UserType.Admin)
+                    {
+                        Console.WriteLine($"\nWelcome Admin {user.FullName}!");
+                        AdminMenu.ShowAdminMenu();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"\nWelcome {user.FullName}!");
+                        Menu.ShowMainMenu(user);
+                        return;
+                    }
                 }
                 else
                 {
-                    Console.WriteLine($"\nWelcome {user.FullName}!");
-                    Menu.ShowMainMenu(user);
-                    return;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Username or password is not correct!");
+                    Console.ForegroundColor = ConsoleColor.Gray;
                 }
             }
-            else
-                Console.WriteLine("Username or password is not correct!");
         }
-
     }
 }
