@@ -1,6 +1,7 @@
 ﻿using ECommerce.Application.DTOs;
 using ECommerce.Application.Extensions;
 using ECommerce.Application.Interfaces;
+using ECommerce.Domain.Entities.Models;
 using ECommerce.Domain.Interfaces;
 
 namespace ECommerce.Application.Services
@@ -14,19 +15,16 @@ namespace ECommerce.Application.Services
             _repository = repository;
         }
 
-        public void AddItem(OrderItemCreateDto createDto)
+        public void AddItem(OrderItemCreateDto orderItemCreateDto, int userId)
         {
-            //var existingItem = createDto.toShoppingCart
-            //if (existingItem != null)
-            //{
-            //    existingItem.Quantity += createDto.Quantity;
-            //}
-            //else
-            //{
-            //    var orderItem = createDto.toOrderItem();
+            var orderItem = orderItemCreateDto.toOrderItem();
+            var shoppingCart = new ShoppingCart
+            {
+                OrderItems = new List<OrderItem> { orderItem },
+                UserId = userId,
+            };
 
-            //    _repository.Add(orderItem);
-            //}
+            _repository.Add(shoppingCart);
         }
 
         public void ClearCart()

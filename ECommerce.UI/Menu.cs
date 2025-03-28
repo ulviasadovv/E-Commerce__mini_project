@@ -8,8 +8,9 @@ namespace ECommerce.UI
         {
             while (true)
             {
-                Console.WriteLine();
-                Console.WriteLine("1. Show Products");
+                Console.Clear();
+                Console.WriteLine($"Welcome {user.FullName}!");
+                Console.WriteLine("\n1. Show Products");
                 Console.WriteLine("2. Order");
                 Console.WriteLine("3. Exit");
 

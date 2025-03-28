@@ -23,19 +23,17 @@ namespace ECommerce.UI
                 var user = dbContext.Users.FirstOrDefault
                     (
                     u => u.FullName.ToLower() == username.ToLower() &&
-                    u.Password.ToLower() == password.ToLower()
+                    u.Password == password
                     );
 
                 if (user != null)
                 {
                     if (user.Type == UserType.Admin)
                     {
-                        Console.WriteLine($"\nWelcome Admin {user.FullName}!");
-                        AdminMenu.ShowAdminMenu();
+                        AdminMenu.ShowAdminMenu(user);
                     }
                     else
                     {
-                        Console.WriteLine($"\nWelcome {user.FullName}!");
                         Menu.ShowMainMenu(user);
                         return;
                     }

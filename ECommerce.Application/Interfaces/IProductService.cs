@@ -9,8 +9,8 @@ namespace ECommerce.Application.Interfaces
         ProductDto GetById(int id);
         ProductDto Get(Expression<Func<Product, bool>> predicate);
         List<ProductDto> GetAll(Expression<Func<Product, bool>>? predicate, bool asNoTracking);
-        public void Add(ProductCreateDto orderCreateDto);
-        public void Update(ProductUpdateDto orderUpdateDto);
+        public void Add(ProductCreateDto productCreateDto);
+        public void Update(ProductUpdateDto productUpdateDto);
         public void Remove(int id);
     }
 }

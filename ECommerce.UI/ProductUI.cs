@@ -12,6 +12,7 @@ public class ProductUI
 {
     public static void ShowProducts(User user)
     {
+        //Console.Clear();
         var appDbContext = new AppDbContext();
         IProductRepository productRepository = new ProductRepository(appDbContext);
         IProductService productService = new ProductManager(productRepository);
@@ -23,10 +24,14 @@ public class ProductUI
         }
         else
         {
-            Console.WriteLine("\n=== Products ===");
+            Console.WriteLine($"{"Products", 30}");
+            Console.WriteLine(new string('-', 50));
+            Console.WriteLine($"{"ID", 5}, {"Name", 20} {"Price", 20}");
+            Console.WriteLine(new string('=', 50));
+
             foreach (var product in products)
             {
-                Console.WriteLine($"ID: {product.Id}, Name: {product.Name}, Price: {product.Price}");
+                Console.WriteLine($"|| {product.Id,2} {product.Name,20} {product.Price,20} ||");
             }
 
             Console.WriteLine("\n1. Add to basket");
@@ -49,10 +54,35 @@ public class ProductUI
                         }
                         else
                         {
-                            var order = new OrderCreateDto
+                            int quantity;
+
+                            while (true)
                             {
-                                UserId = user.Id,
+                                bool isValid = true;
+
+                                Console.WriteLine("Enter product quantity: ");
+                                quantity = Convert.ToInt32(Console.ReadLine());
+
+                                if (quantity <= 0)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Quantity must be greater than 0.");
+                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                    isValid = false;
+                                }
+
+                                if (isValid) break;
+                            }
+
+                            var orderItem = new OrderItemCreateDto
+                            {
+                                ProductId = selectedProduct.Id,
+                                Quantity = quantity,
                             };
+
+                            IShoppingCartRepository shoppingCartRepository = new ShoppingCartRepository(appDbContext);
+                            IShoppingCartService shoppingCartService = new ShoppingCartManager(shoppingCartRepository);
+                            shoppingCartService.AddItem(orderItem, user.Id);
 
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("Product added to basket.");

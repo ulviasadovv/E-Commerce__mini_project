@@ -20,7 +20,7 @@ namespace ECommerce.Application.Extensions
             return new OrderItemDto
             {
                 Id = orderItem.Id,
-                OrderId = orderItem.OrderId,
+                OrderId = (int)orderItem.OrderId,
                 ProductId = orderItem.ProductId,
                 Quantity = orderItem.Quantity
             };

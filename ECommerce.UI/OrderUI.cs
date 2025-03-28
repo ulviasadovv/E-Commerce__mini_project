@@ -12,9 +12,10 @@ namespace ECommerce.UI
     {
         public static void PlaceOrder(User user)
         {
+            Console.Clear();
             var appDbContext = new AppDbContext();
-            IOrderRepository orderRepository = new OrderRepository(appDbContext);
-            IOrderService orderService = new OrderManager(orderRepository);
+            IShoppingCartRepository shoppingCartRepository = new ShoppingCartRepository(appDbContext);
+            IShoppingCartService shoppingCartService = new ShoppingCartManager(shoppingCartRepository);
 
             var orders = appDbContext.Orders.Include(x => x.User).ToList();
             if (orders.Count == 0)
@@ -25,10 +26,11 @@ namespace ECommerce.UI
                 return;
             }
 
+            Console.Clear();
             Console.WriteLine("\n=== Orders ===");
             foreach (var order in orders)
             {
-                Console.WriteLine($"ID: {order.Id}, User: {order.User.FullName}, Status: {order.Status}");
+                Console.WriteLine($"ID: {order.Id, 5}, User: {order.User.FullName, 20}, Status: {order.Status, 20}");
             }
         }
 

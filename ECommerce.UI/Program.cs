@@ -1,6 +1,7 @@
 ﻿using ECommerce.Application.DTOs;
 using ECommerce.Application.Interfaces;
 using ECommerce.Application.Services;
+using ECommerce.Domain.Entities.Models;
 using ECommerce.Domain.Interfaces;
 using ECommerce.Infrastructure.EfCore;
 using ECommerce.Infrastructure.EfCore.Context;
@@ -24,6 +25,9 @@ namespace ECommerce.UI
 
             IOrderRepository orderRepository = new OrderRepository(appDbContext);
             IOrderService orderService = new OrderManager(orderRepository);
+
+            IShoppingCartRepository shoppingCartRepository = new ShoppingCartRepository(appDbContext);
+            IShoppingCartService shoppingCartService = new ShoppingCartManager(shoppingCartRepository);
 
             Authentication.Login();
 

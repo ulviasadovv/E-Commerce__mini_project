@@ -5,9 +5,9 @@ using ECommerce.Infrastructure.EfCore.Core;
 
 namespace ECommerce.Infrastructure.EfCore;
 
-public class CategoryRepository : EfCoreRepository<Category>, ICategoryRepository
+public class ShoppingCartRepository : EfCoreRepository<ShoppingCart>, IShoppingCartRepository
 {
-    public CategoryRepository(AppDbContext context) : base(context)
+    public ShoppingCartRepository(AppDbContext context) : base(context)
     {
     }
 }
