@@ -3,6 +3,7 @@ using ECommerce.Application.Extensions;
 using ECommerce.Application.Interfaces;
 using ECommerce.Domain.Entities.Models;
 using ECommerce.Domain.Interfaces;
+using System.Linq.Expressions;
 
 namespace ECommerce.Application.Services
 {
@@ -27,9 +28,33 @@ namespace ECommerce.Application.Services
             _repository.Add(shoppingCart);
         }
 
-        public void ClearCart()
+        public void ClearCart(Expression<Func<ShoppingCart, bool>>? predicate = null, bool asNoTracking = false)
         {
-            throw new NotImplementedException();
+            var shoppingCartItems = _repository.GetAll(predicate, asNoTracking);
+
+            foreach (var item in shoppingCartItems)
+            {
+                _repository.Remove(item);
+            }
+        }
+
+        public List<ShoppingCartDto> GetAllItems(Expression<Func<ShoppingCart, bool>>? predicate = null, bool asNoTracking = false)
+        {
+            var shoppingCartItems = _repository.GetAll(predicate, asNoTracking);
+            var shoppingCartDtoList = new List<ShoppingCartDto>();
+
+            foreach (var item in shoppingCartItems)
+            {
+                shoppingCartDtoList.Add(new ShoppingCartDto
+                {
+                    Id = item.Id,
+                    UserId = item.UserId,
+                    User = item.User,
+                    OrderItems = item.OrderItems
+                });
+            }
+
+            return shoppingCartDtoList;
         }
 
         public decimal GetTotalPrice()
@@ -39,7 +64,9 @@ namespace ECommerce.Application.Services
 
         public void RemoveItem(int Id)
         {
-            throw new NotImplementedException();
+            var item = _repository.GetById(Id);
+
+            _repository.Remove(item);
         }
     }
 }

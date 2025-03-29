@@ -1,11 +1,12 @@
-﻿using ECommerce.Domain.Entities.Enums;
+﻿using ECommerce.Application.Interfaces;
+using ECommerce.Domain.Entities.Enums;
 using ECommerce.Infrastructure.EfCore.Context;
 
 namespace ECommerce.UI
 {
     public class Authentication
     {
-        public static void Login()
+        public static void Login(IProductService productService, IShoppingCartService shoppingCartService, IOrderService orderService)
         {
             var dbContext = new AppDbContext();
 
@@ -34,14 +35,14 @@ namespace ECommerce.UI
                     }
                     else
                     {
-                        Menu.ShowMainMenu(user);
+                        Menu.ShowMainMenu(productService, shoppingCartService, orderService, user);
                         return;
                     }
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Username or password is not correct!");
+                    Console.WriteLine("\nUsername or password is not correct!\n");
                     Console.ForegroundColor = ConsoleColor.Gray;
                 }
             }

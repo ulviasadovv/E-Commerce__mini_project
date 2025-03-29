@@ -1,10 +1,15 @@
-﻿using ECommerce.Domain.Entities.Models;
+﻿using ECommerce.Application.Interfaces;
+using ECommerce.Application.Services;
+using ECommerce.Domain.Entities.Models;
+using ECommerce.Domain.Interfaces;
+using ECommerce.Infrastructure.EfCore.Context;
+using ECommerce.Infrastructure.EfCore;
 
 namespace ECommerce.UI
 {
     public class Menu
     {
-        public static void ShowMainMenu(User user)
+        public static void ShowMainMenu(IProductService productService, IShoppingCartService shoppingCartService, IOrderService orderService, User user)
         {
             while (true)
             {
@@ -17,13 +22,15 @@ namespace ECommerce.UI
                 Console.Write("Choose an option: ");
                 var choice = Console.ReadLine();
 
+                var productUI = new ProductUI(productService, shoppingCartService, orderService);
+
                 switch (choice)
                 {
                     case "1":
-                        ProductUI.ShowProducts(user);
+                        productUI.ShowProducts(user);
                         break;
                     case "2":
-                        OrderUI.PlaceOrder(user);
+                        OrderUI.PlaceOrder();
                         break;
                     case "3":
                         Console.WriteLine("Goodbye...");

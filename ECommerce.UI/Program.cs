@@ -29,7 +29,7 @@ namespace ECommerce.UI
             IShoppingCartRepository shoppingCartRepository = new ShoppingCartRepository(appDbContext);
             IShoppingCartService shoppingCartService = new ShoppingCartManager(shoppingCartRepository);
 
-            Authentication.Login();
+            Authentication.Login(productService, shoppingCartService, orderService);
 
             //productService.Add(new ProductCreateDto { Name = "Apple", Price = 1.2m, CategoryId = 1 });
             //productService.Add(new ProductCreateDto { Name = "Phone", Price = 800, CategoryId = 3 });

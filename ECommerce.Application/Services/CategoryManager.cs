@@ -35,7 +35,6 @@ public class CategoryManager : ICategoryService
     public List<CategoryDto> GetAll(Expression<Func<Category, bool>>? predicate = null, bool asNoTracking = false)
     {
         var categories = _repository.GetAll(predicate, asNoTracking);
-
         var categoryDtoList = new List<CategoryDto>();
 
         foreach (var item in categories)
